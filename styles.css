@@ -1,0 +1,170 @@
+/* GigSiswa landing page. Colours and fonts follow the app (design/tokens.json in stugig-mobile). */
+/* Layout: split hero (copy | mascot on a disc with live status chips), two-audience band, student route, navy sign-up band, footer. */
+:root {
+  --bg: #F4FAF9; --surface: #FFFFFF; --fg: #0B1F3A; --muted: #4B5B70; --line: #DCE7E5;
+  --teal: #14B8A6; --teal-ink: #0F766E; --teal-soft: #E6F7F5; --coral: #FF6B4A; --coral-soft: #FFE8E2;
+  --band: #0B1F3A; --band-fg: #F4FAF9; --band-muted: #A9BDD1; --disc: #DDF4F0; --shadow: 0 10px 30px rgba(11,31,58,.10);
+  --display: "Poppins", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root {
+  --bg: #08172B; --surface: #0F2440; --fg: #EAF4F2; --muted: #A3B6C9; --line: #1E3858;
+  --teal: #2DD4BF; --teal-ink: #5EEAD4; --teal-soft: #123A45; --coral: #FF8466; --coral-soft: #3A2228;
+  --band: #0F2C4D; --band-fg: #F4FAF9; --band-muted: #A9BDD1; --disc: #CDEFEA; --shadow: 0 10px 30px rgba(0,0,0,.35); color-scheme: dark } }
+
+* { box-sizing: border-box }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth }
+html, body { margin: 0 }
+body { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px) }
+img { max-width: 100%; height: auto }
+[hidden] { display: none !important }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--body); }
+.wrap { width: 100%; max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0 }
+p { margin: 0 }
+a { color: inherit }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px }
+
+/* Brand mark, drawn as type so it follows the theme */
+.mark { font: 900 1.6rem/1 var(--display); letter-spacing: -.02em; text-decoration: none; display: inline-flex; align-items: baseline }
+.mark .g { color: var(--fg) } .mark .s { color: var(--teal) } .mark .a { color: var(--coral); position: relative }
+.mark .a::after { content: ""; position: absolute; right: -.42em; top: .02em; width: .34em; height: .3em;
+  background: linear-gradient(var(--coral),var(--coral)) 0 100%/.08em .3em no-repeat, linear-gradient(var(--coral),var(--coral)) 100% 30%/.3em .08em no-repeat;
+  transform: rotate(-20deg) }
+
+header.top { padding-block: 22px }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap }
+.badge { display: inline-flex; align-items: center; gap: 8px; font: 600 .74rem/1 var(--display); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--teal-ink); background: var(--teal-soft); padding: 8px 12px; border-radius: 999px }
+.badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--coral); animation: blink 1.4s ease-in-out infinite }
+
+/* Hero */
+.hero { padding-block: 24px 56px }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center }
+.hero-copy { display: grid; gap: 22px; min-width: 0 }
+.hero h1 { font-size: clamp(2.5rem, 6vw, 4.3rem); font-weight: 900; letter-spacing: -.03em }
+.hero h1 .hl { color: var(--coral); white-space: nowrap }
+.hero .sub { font: 700 clamp(1.15rem, 2.2vw, 1.45rem)/1.3 var(--display); color: var(--teal-ink) }
+.hero .lede { max-width: 34rem; color: var(--muted); font-size: 1.07rem }
+.hero .lede strong { color: var(--fg) }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 24px; border-radius: 14px;
+  font: 700 1rem/1 var(--display); text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease }
+.btn:hover { transform: translateY(-2px) }
+.btn-primary { background: var(--teal); color: #08223A; box-shadow: 0 6px 0 var(--teal-ink) }
+.btn-primary:active { transform: translateY(3px); box-shadow: 0 3px 0 var(--teal-ink) }
+.btn-ghost { background: transparent; color: var(--fg); border-color: var(--fg) }
+
+/* The loading bar: the page's one orchestrated moment */
+.loader { display: grid; gap: 8px; max-width: 30rem }
+.loader-label { display: flex; justify-content: space-between; gap: 12px; font: 600 .85rem/1.3 var(--display); color: var(--muted) }
+.loader-label b { color: var(--fg) }
+.bar { height: 16px; border-radius: 999px; background: var(--surface); border: 2px solid var(--fg); overflow: hidden; position: relative }
+.bar i { position: absolute; inset: 2px auto 2px 2px; width: 72%; border-radius: 999px;
+  background: repeating-linear-gradient(-45deg, var(--teal) 0 10px, var(--teal-ink) 10px 20px); background-size: 28px 100%;
+  animation: stripes .9s linear infinite, breathe 3.2s ease-in-out infinite }
+.loader small { color: var(--muted); font-size: .82rem }
+
+/* Mascot stage */
+.stage { position: relative; min-width: 0; display: grid; place-items: center; padding: 28px 0 }
+.disc { position: relative; width: min(100%, 440px); aspect-ratio: 1; max-width: 100%; border-radius: 50%; background: var(--disc); overflow: hidden }
+.disc img { position: absolute; left: 50%; bottom: 0; width: 104%; transform: translateX(-50%) }
+.chip { position: absolute; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 14px; background: var(--surface);
+  color: var(--fg); font: 600 .84rem/1.2 var(--display); box-shadow: var(--shadow); border: 1px solid var(--line); white-space: nowrap; animation: float 5s ease-in-out infinite }
+.chip em { font-style: normal; color: var(--teal-ink) }
+.chip.c1 { top: 4%; left: -2% } .chip.c2 { top: 30%; right: -4%; animation-delay: -1.2s }
+.chip.c3 { bottom: 26%; left: -6%; animation-delay: -2.4s } .chip.c3 em { color: var(--coral) }
+.gig { position: absolute; right: 0; bottom: 0; width: 250px; max-width: 72%; background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+  padding: 14px 16px; box-shadow: var(--shadow); display: grid; gap: 6px; animation: float 6s ease-in-out infinite; animation-delay: -3s }
+.gig .tag { justify-self: start; font: 700 .66rem/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--coral); background: var(--coral-soft); padding: 5px 8px; border-radius: 6px }
+.gig h3 { font-size: 1rem; font-weight: 700 }
+.gig .meta { color: var(--muted); font-size: .82rem; line-height: 1.4 }
+.gig .pay { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding-top: 6px; border-top: 1px dashed var(--line); font-variant-numeric: tabular-nums }
+.gig .pay strong { font: 800 1.15rem/1 var(--display); color: var(--teal-ink) }
+.gig .pay span { font-size: .78rem; color: var(--muted) }
+
+/* Two audiences */
+section.duo { padding-block: 24px 64px }
+.duo .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 20px }
+.side { border-radius: 24px; padding: 32px; display: grid; gap: 14px; align-content: start; min-width: 0 }
+.side.student { background: var(--teal-soft) }
+.side.biz { background: var(--surface); border: 2px solid var(--fg) }
+.side .who { font: 700 .74rem/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+.side h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800 }
+.side p { color: var(--muted); max-width: 32rem }
+.side ul { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 10px }
+.side li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start }
+.side li::before { content: "✓"; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 8px; font: 800 .8rem/1 var(--display); background: var(--teal); color: #08223A; margin-top: 1px }
+.side.biz li::before { background: var(--fg); color: var(--bg) }
+
+/* Route: a real sequence, so it is numbered */
+section.route { padding-block: 8px 72px }
+.route .wrap { display: grid; gap: 28px }
+.route-head { display: grid; gap: 8px; max-width: 40rem }
+.route-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 800 }
+.route-head p { color: var(--muted) }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: step; position: relative }
+.steps li { counter-increment: step; display: grid; gap: 8px; align-content: start; padding-top: 58px; position: relative; min-width: 0 }
+.steps li::before { content: counter(step); position: absolute; top: 0; left: 0; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  font: 800 1.1rem/1 var(--display); background: var(--surface); border: 2px solid var(--fg); color: var(--fg); z-index: 1 }
+.steps li:last-child::before { background: var(--coral); border-color: var(--coral); color: #FFFFFF }
+.steps li:not(:last-child)::after { content: ""; position: absolute; top: 21px; left: 52px; right: -8px; border-top: 2px dashed var(--line) }
+.steps h3 { font-size: 1.05rem; font-weight: 700 }
+.steps p { color: var(--muted); font-size: .94rem }
+
+/* Sign-up band */
+section.signup { background: var(--band); color: var(--band-fg); padding-block: 64px }
+.signup .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center }
+.signup h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 900; letter-spacing: -.02em }
+.signup .lead { color: var(--band-muted); margin-top: 12px; max-width: 30rem }
+.quote { margin-top: 24px; padding-left: 16px; border-left: 3px solid var(--coral); color: var(--band-fg); font: 600 1rem/1.5 var(--display); max-width: 28rem }
+.quote span { color: var(--teal) }
+.fields { display: grid; gap: 16px }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden }
+form.join { position: relative; background: var(--surface); color: var(--fg); border-radius: 22px; padding: 28px; display: grid; gap: 16px; min-width: 0 }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px }
+legend, label { font: 600 .86rem/1.3 var(--display) }
+.roles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.roles input { position: absolute; opacity: 0; pointer-events: none }
+.roles label { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border-radius: 12px; border: 2px solid var(--line); cursor: pointer; text-align: center; padding: 6px 10px }
+.roles input:checked + label { border-color: var(--teal); background: var(--teal-soft); color: var(--fg) }
+.roles input:focus-visible + label { outline: 3px solid var(--teal); outline-offset: 2px }
+.field { display: grid; gap: 8px }
+input[type="email"] { width: 100%; min-height: 52px; border-radius: 12px; border: 2px solid var(--line); background: var(--bg); color: var(--fg); padding: 0 16px; font: 500 1rem var(--body) }
+input[type="email"]:focus { border-color: var(--teal); outline: none }
+.err { color: var(--coral); font-size: .86rem; min-height: 1.2em }
+.fine { color: var(--muted); font-size: .8rem }
+.btn[disabled] { opacity: .6; cursor: progress; transform: none }
+.done:focus { outline: none }
+.done { display: grid; gap: 8px; text-align: center; padding: 12px 0 }
+.done h3 { font-size: 1.4rem; font-weight: 800 }
+.done p { color: var(--muted) }
+
+footer { padding-block: 36px }
+footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px }
+footer .tag { font: 800 1.15rem/1.2 var(--display) }
+footer .tag span { color: var(--coral) }
+footer small { color: var(--muted) }
+
+@keyframes stripes { to { background-position: 28px 0 } }
+@keyframes breathe { 0%,100% { width: 64% } 50% { width: 84% } }
+@keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+@keyframes blink { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important } }
+
+@media (max-width: 900px) {
+  .hero .wrap, .duo .wrap, .signup .wrap { grid-template-columns: 1fr }
+  .stage { max-width: 460px; width: 100%; justify-self: center }
+  .steps { grid-template-columns: 1fr 1fr; row-gap: 28px }
+  .steps li:nth-child(2)::after { display: none }
+}
+@media (max-width: 520px) {
+  .hero h1 .hl { white-space: normal }
+  .steps { grid-template-columns: 1fr }
+  .steps li::after { display: none }
+  .side, form.join { padding: 22px }
+  .chip { font-size: .74rem; padding: 8px 10px }
+  .chip.c1 { left: 0 } .chip.c2 { right: 0 } .chip.c3 { left: 0 }
+  .gig { width: 210px }
+}
