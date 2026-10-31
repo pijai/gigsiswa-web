@@ -30,6 +30,10 @@ node --test
 
 ## Going live
 
+Live at https://gigsiswa.com: GitHub Pages serves `main`, the `CNAME` file sets the domain, and DNS is at Shinjiru (four GitHub Pages `A` records on the apex, `www` as a CNAME to `pijai.github.io`).
+
+To move it elsewhere:
+
 1. Host the folder as static files anywhere, with HTTPS.
 2. Set the `gigsiswa-api` meta tag in `index.html` to the API that should receive sign-ups.
 3. Add the site's origin (for example `https://gigsiswa.my`) to `CORS_ORIGINS` on that API. Without it, the browser blocks the form and visitors see "We couldn't save your email just now".
